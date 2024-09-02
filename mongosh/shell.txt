@@ -1,0 +1,1 @@
+db.companies.insertOne({ name: 'Fresh Apples Inc', isStartup: true, employees: 33, funding: 12341234567890, details: { ceo: 'Viktor Palchynskyi' }, tags: [{ title: 'super' }, { title: 'perfect' }], foudingDate: new Date(), insertedAt: new Timestamp()  })
