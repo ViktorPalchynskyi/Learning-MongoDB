@@ -1,3 +1,73 @@
+db.companies.insertOne({
+    name: 'Fresh Apples Inc',
+    isStartup: true,
+    employees: 33,
+    funding: 12341234567890,
+    details: { ceo: 'Viktor Palchynskyi' },
+    tags: [{ title: 'super' }, { title: 'perfect' }],
+    foudingDate: new Date(),
+    insertedAt: new Timestamp(),
+});
+
+db.stats();
+
+var dsid = db.patients.findOne().diseaseSummary;
+
+db.users.aggregate([
+    {
+        $lookup: {
+            from: 'books',
+            localField: 'fvBooks',
+            foreignField: '_id',
+            as: 'books',
+        },
+    },
+])[
+    {
+        _id: ObjectId('66d5b3fb871ef4e9105e73ad'),
+        name: 'Viktor',
+        fvBooks: [
+            ObjectId('66d5b3bf871ef4e9105e73ab'),
+            ObjectId('66d5b3bf871ef4e9105e73ac'),
+        ],
+        books: [
+            {
+                _id: ObjectId('66d5b3bf871ef4e9105e73ac'),
+                name: 'Martin Iden',
+            },
+            {
+                _id: ObjectId('66d5b3bf871ef4e9105e73ab'),
+                name: 'Mobidick',
+            },
+        ],
+    }
+];
+b.users.aggregate([
+    {
+        $lookup: {
+            from: 'books',
+            localField: 'fvBooks',
+            foreignField: '_id',
+            as: 'fvBooks',
+        },
+    },
+])[
+    {
+        _id: ObjectId('66d5b3fb871ef4e9105e73ad'),
+        name: 'Viktor',
+        fvBooks: [
+            {
+                _id: ObjectId('66d5b3bf871ef4e9105e73ac'),
+                name: 'Martin Iden',
+            },
+            {
+                _id: ObjectId('66d5b3bf871ef4e9105e73ab'),
+                name: 'Mobidick',
+            },
+        ],
+    }
+];
+
 db.createCollection('posts', {
     validator: {
         $jsonSchema: {
@@ -78,3 +148,6 @@ db.runCommand({
     },
     validationAction: 'warn',
 });
+
+
+// sudo mongod --dbpath /var/lib/mongodb/db --logpath /var/lib/mongodb/logs/log.log
