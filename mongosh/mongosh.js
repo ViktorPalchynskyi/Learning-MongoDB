@@ -151,3 +151,4 @@ db.runCommand({
 
 
 // sudo mongod --dbpath /var/lib/mongodb/db --logpath /var/lib/mongodb/logs/log.log
+// sudo mongod --fork --logpath ~/testLogs/
