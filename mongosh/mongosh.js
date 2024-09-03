@@ -206,7 +206,7 @@ db.movies
     })
     .count();
 
-// $and 
+// $and
 // use $and operator if working with one field.
 
 db.movies
@@ -221,6 +221,11 @@ db.movies
 db.movies
     .find({ $and: [{ genres: 'Horror' }, { genres: 'Drama' }] })
     .count();
+
+// $not
+// its better to use $ne. may be there are some cases I can use this operator.
+
+db.movies.find({ runtime: { $not: { $eq: 60 } } }).count();
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
