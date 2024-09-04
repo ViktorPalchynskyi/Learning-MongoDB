@@ -343,10 +343,16 @@ db.users.updateMany(
     { $set: { 'hobbies.$.highFrequency': true } }
 );
 
-// updating all array element
+// updating all array elements
 db.users.updateMany(
     { totalAge: { $gt: 30 } },
     { $inc: { 'hobbies.$[].frequency': -1 } }
+);
+
+db.users.updateMany(
+    { 'hobbies.frequency': { $gt: 2 } },
+    { $set: { 'hobbies.$[el].normalCount': true } },
+    { arrayFilters: [{ 'el.frequency': { $gt: 2 } }] }
 );
 // -------------------------------------------------------------------------------READ OPERATIONS----------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------DELETE OPERATIONS----------------------------------------------------------------------------------------------
