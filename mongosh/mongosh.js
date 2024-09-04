@@ -320,5 +320,17 @@ db.users.updateMany({ isSporty: true }, { $unset: { phone: 1 } });
 // $rename
 db.users.updateMany({}, { $rename: { age: 'totalAge' } });
 
+// ousert option
+db.users.updateOne(
+    { name: 'Maria' },
+    {
+        $set: {
+            age: 29,
+            hobbies: [{ title: 'Painting', frequency: 3 }],
+            isSporty: false,
+        },
+    },
+    { upsert: true }
+);
 // -------------------------------------------------------------------------------READ OPERATIONS----------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------DELETE OPERATIONS----------------------------------------------------------------------------------------------
