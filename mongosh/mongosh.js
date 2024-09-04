@@ -354,5 +354,41 @@ db.users.updateMany(
     { $set: { 'hobbies.$[el].normalCount': true } },
     { arrayFilters: [{ 'el.frequency': { $gt: 2 } }] }
 );
+
+// adding array elements
+db.users.updateOne(
+    { name: 'Maria' },
+    { $push: { hobbies: { title: 'Storts', frequency: 2 } } }
+);
+
+db.users.updateOne(
+    { name: 'Maria' },
+    {
+        $push: {
+            hobbies: {
+                $each: [
+                    { title: 'Reading', frequency: 4 },
+                    { title: 'Yoga', frequency: 5 },
+                ],
+            },
+        },
+    }
+);
+
+db.users.updateOne(
+    { name: 'Maria' },
+    {
+        $push: {
+            hobbies: {
+                $each: [
+                    { title: 'Chating', frequency: 4 },
+                    { title: 'Games', frequency: 5 },
+                ],
+                $sort: { frequency: -1 },
+            },
+        },
+    }
+);
+
 // -------------------------------------------------------------------------------READ OPERATIONS----------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------DELETE OPERATIONS----------------------------------------------------------------------------------------------
