@@ -410,3 +410,9 @@ db.users.drop();
 db.users.deletOne({ name: 'Chris' });
 db.users.deletMany({});
 db.dropDatabase();
+
+// -------------------------------------------------------------------------------INDEXSES----------------------------------------------------------------------------------------------
+
+db.contacts.explain().find({ 'db.age': { $gt: 60 } });
+db.contacts.explain('executionStats').find({ 'db.age': { $gt: 60 } });
+db.contacts.createIndex({ 'dob.age': 1 });
