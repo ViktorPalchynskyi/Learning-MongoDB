@@ -416,3 +416,5 @@ db.dropDatabase();
 db.contacts.explain().find({ 'db.age': { $gt: 60 } });
 db.contacts.explain('executionStats').find({ 'db.age': { $gt: 60 } });
 db.contacts.createIndex({ 'dob.age': 1 });
+
+db.contacts.dropIndex({ 'dob.age': 1 });
