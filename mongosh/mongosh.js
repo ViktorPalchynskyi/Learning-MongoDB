@@ -482,3 +482,9 @@ db.products.createIndex(
         weights: { title: 1, description: 10 },
     }
 );
+
+// During index creation collection is locked till index will be created.
+// If a db is large it can take couple of minutes and it's not good solution for production
+// Use background option when create an index to avoid collection lock.
+
+db.ratings.createIndex({ age: 1 }, { background: true });
