@@ -436,3 +436,13 @@ db.users.createIndex(
         partialFilterExpression: { email: { $exists: true } },
     }
 );
+
+db.users.createIndex(
+    { email: 1 },
+    {
+        unique: true,
+        partialFilterExpression: { email: { $exists: true } },
+    }
+);
+
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 10 });
