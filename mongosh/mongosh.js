@@ -509,3 +509,17 @@ db.places.find({
         },
     },
 });
+
+db.places.createIndex({ location: '2dsphere' });
+db.places.find({
+    location: {
+        $near: {
+            $geometry: {
+                type: 'Point',
+                coordinates: [-122.477741, 37.769791],
+            },
+            $maxDistance: 700,
+            $minDistance: 10,
+        },
+    },
+});
