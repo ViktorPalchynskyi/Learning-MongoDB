@@ -488,3 +488,13 @@ db.products.createIndex(
 // Use background option when create an index to avoid collection lock.
 
 db.ratings.createIndex({ age: 1 }, { background: true });
+
+// -------------------------------------------------------------------------------GEOSPATIAL DATA----------------------------------------------------------------------------------------------
+
+db.places.insertOne({
+    name: 'California Academy of Sciences',
+    location: {
+        type: 'Point',
+        coordinates: [-122.4701339, 37.7689276],
+    },
+});
