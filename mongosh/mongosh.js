@@ -459,3 +459,7 @@ db.customers
 db.contacts.createIndex({ hobbies: 1 });
 db.contacts.createIndex({ addresses: 1 });
 db.contacts.createIndex({ 'addresses.street': 1 });
+
+// only one text index per collection
+db.products.createIndex({ description: 'text' });
+db.products.find({ $text: { $search: 'awesome' } });
