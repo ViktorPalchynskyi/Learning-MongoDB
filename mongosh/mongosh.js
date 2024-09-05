@@ -428,3 +428,11 @@ db.contacts.createIndex(
     { 'dob.age': 1 },
     { partialFilterExpression: { gender: 'mail' } }
 );
+
+db.users.createIndex(
+    { email: 1 },
+    {
+        unique: true,
+        partialFilterExpression: { email: { $exists: true } },
+    }
+);
