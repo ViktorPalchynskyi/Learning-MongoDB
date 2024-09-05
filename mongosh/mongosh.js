@@ -475,3 +475,10 @@ db.products.createIndex({ title: 'text', description: 'text' });
 db.products.find({ $text: { $search: 'ship' } });
 
 db.products.find({ $text: { $search: 'awesome -t-shirt' } });
+db.products.createIndex(
+    { title: 'text', description: 'text' },
+    {
+        default_language: 'english',
+        weights: { title: 1, description: 10 },
+    }
+);
