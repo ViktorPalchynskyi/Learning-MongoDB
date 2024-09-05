@@ -463,3 +463,10 @@ db.contacts.createIndex({ 'addresses.street': 1 });
 // only one text index per collection
 db.products.createIndex({ description: 'text' });
 db.products.find({ $text: { $search: 'awesome' } });
+
+db.products
+    .find(
+        { $text: { $search: 'awesome t-shirt' } },
+        { score: { $meta: 'textScore' } }
+    )
+    .sort({ score: { $meta: 'textScore' } });
