@@ -470,3 +470,6 @@ db.products
         { score: { $meta: 'textScore' } }
     )
     .sort({ score: { $meta: 'textScore' } });
+
+db.products.createIndex({ title: 'text', description: 'text' });
+db.products.find({ $text: { $search: 'ship' } });
