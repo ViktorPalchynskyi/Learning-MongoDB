@@ -419,3 +419,5 @@ db.contacts.createIndex({ 'dob.age': 1 });
 
 db.contacts.dropIndex({ 'dob.age': 1 });
 db.contacts.createIndex({ 'dob.age': 1, gender: 1 });
+
+db.contacts.getIndexes();
