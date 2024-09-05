@@ -446,3 +446,5 @@ db.users.createIndex(
 );
 
 db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 10 });
+
+db.customers.explain('executionStats').find({ name: 'Max' });
