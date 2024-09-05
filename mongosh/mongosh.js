@@ -452,3 +452,10 @@ db.customers.explain('executionStats').find({ name: 'Max' });
 db.customers
     .explain('allPlansExecution')
     .find({ name: 'Max', age: 30 });
+
+// hobbies as an array of strings ['Cooking', 'Sports'], addresses as an array of embedded document [{street: 'Main'}, {street: 'Second'}].
+// Multi-Key indexes is not working with two parallel arrays e.g. db.contacts.createIndex({ addresses: 1, hobbies: 1 });
+
+db.contacts.createIndex({ hobbies: 1 });
+db.contacts.createIndex({ addresses: 1 });
+db.contacts.createIndex({ 'addresses.street': 1 });
