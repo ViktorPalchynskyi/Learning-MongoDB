@@ -473,3 +473,5 @@ db.products
 
 db.products.createIndex({ title: 'text', description: 'text' });
 db.products.find({ $text: { $search: 'ship' } });
+
+db.products.find({ $text: { $search: 'awesome -t-shirt' } });
