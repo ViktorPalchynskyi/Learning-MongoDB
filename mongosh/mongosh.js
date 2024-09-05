@@ -423,3 +423,8 @@ db.contacts.createIndex({ 'dob.age': 1, gender: 1 });
 db.contacts.getIndexes();
 
 db.contacts.createIndex({ email: 1 }, { unique: true });
+
+db.contacts.createIndex(
+    { 'dob.age': 1 },
+    { partialFilterExpression: { gender: 'mail' } }
+);
