@@ -498,3 +498,14 @@ db.places.insertOne({
         coordinates: [-122.4701339, 37.7689276],
     },
 });
+
+db.places.find({
+    location: {
+        $near: {
+            $geometry: {
+                type: 'Point',
+                coordinates: [-122.477741, 37.769791],
+            },
+        },
+    },
+});
