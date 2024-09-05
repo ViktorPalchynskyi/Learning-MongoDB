@@ -534,3 +534,14 @@ db.places.find({
         },
     },
 });
+
+db.areas.find({
+    area: {
+        $geoIntersects: {
+            $geometry: {
+                type: 'Point',
+                coordinates: [-122.483262, 37.770141],
+            },
+        },
+    },
+});
