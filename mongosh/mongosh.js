@@ -735,4 +735,11 @@ db.persons.aggregate([
             },
         },
     },
+    {
+        $group: {
+            _id: { birthYear: { $isoWeekYear: '$birthdate' } },
+            totalPersons: { $sum: 1 },
+        },
+    },
+    {$sort: {totalPersons: -1}}
 ]);
