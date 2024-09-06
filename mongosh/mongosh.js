@@ -558,3 +558,14 @@ db.places.find({
 
 // match stage
 db.persons.aggregate([{ $match: { gender: 'female' } }]);
+
+// group stage
+db.persons.aggregate([
+    { $match: { gender: 'female' } },
+    {
+        $group: {
+            _id: { state: '$location.state' },
+            totalPersons: { $sum: 1 },
+        },
+    },
+]);
