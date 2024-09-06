@@ -981,3 +981,10 @@ db.science.aggregate([
         result: 0.19999999999999998,
     },
 ];
+
+// Decimal 128bit
+
+db.science.insertOne({
+    a: NumberDecimal('0.3'),
+    b: NumberDecimal('0.1'),
+});
