@@ -974,3 +974,10 @@ db.companies.insertOne({
 db.science.aggregate([
     { $project: { result: { $subtract: ['$a', '$b'] } } },
 ]);
+
+[
+    {
+        _id: ObjectId('66db232f6b2e0f983c5e73b1'),
+        result: 0.19999999999999998,
+    },
+];
