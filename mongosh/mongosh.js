@@ -1009,3 +1009,13 @@ db.science.insertOne({
 // db.auth('Viktor', '0219123')
 // db.getUser('appdev')
 // db.auth('appdev', 'dev')
+
+// openssl req -newkey rsa:2048 -new -x509 -days 365 -nodes -out mongodb-cert.crt -keyout mongodb-cert.key
+// cat mongodb-cert.key mongodb-cert.crt > mongodb.pem
+// mongosh --sslMode requireSSL sslPEMKeyFile mongodb.pem
+
+db.shutdownServer();
+
+// check mongod logs and remove socket file
+// sudo cat /var/log/mongodb/mongod.log
+// sudo rm /tmp/mongodb-27017.sock
