@@ -570,7 +570,7 @@ db.persons.aggregate([
     },
 ]);
 
-// 
+// sort
 
 db.persons.aggregate([
     { $match: { gender: 'female' } },
@@ -578,6 +578,18 @@ db.persons.aggregate([
         $group: {
             _id: { state: '$location.state' },
             totalPersons: { $sum: 1 },
+        },
+    },
+    { $sort: { totalPersons: -1 } },
+]);
+
+db.persons.aggregate([
+    { $match: { 'dob.age': {$gt: 50} } },
+    {
+        $group: {
+            _id: { gender: '$gender' },
+            totalPersons: { $sum: 1 },
+            avarageAge: {$avg: '$dob.age'}
         },
     },
     { $sort: { totalPersons: -1 } },
