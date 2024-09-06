@@ -655,18 +655,40 @@ db.persons.aggregate([
     },
 ]);
 
-
 db.persons.aggregate([
     {
         $project: {
             _id: 0,
             name: 1,
             email: 1,
+            birthdate: {
+                $convert: {
+                    input: '$dob.date',
+                    to: 'date',
+                    onError: new Date(),
+                    onNull: new Date(),
+                },
+            },
+            age: '$dob.age',
             location: {
                 type: 'Point',
                 coordinates: [
-                    {$convert: {input: '$location.coordinates.longitude', to: 'double', onError: 0.0, onNull: 0.0 }},
-                    {$convert: {input: '$location.coordinates.latitude', to: 'double', onError: 0.0, onNull: 0.0 }},
+                    {
+                        $convert: {
+                            input: '$location.coordinates.longitude',
+                            to: 'double',
+                            onError: 0.0,
+                            onNull: 0.0,
+                        },
+                    },
+                    {
+                        $convert: {
+                            input: '$location.coordinates.latitude',
+                            to: 'double',
+                            onError: 0.0,
+                            onNull: 0.0,
+                        },
+                    },
                 ],
             },
         },
@@ -677,6 +699,8 @@ db.persons.aggregate([
             gender: 1,
             email: 1,
             location: 1,
+            birthdate: 1,
+            age: 1,
             fullName: {
                 $concat: [
                     { $toUpper: '$name.title' },
