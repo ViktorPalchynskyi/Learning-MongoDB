@@ -954,7 +954,13 @@ db.transformedPersons.aggregate([
             maxDistance: 1000000,
             $limit: 10,
             query: { age: { $gt: 30 } },
-            distanceField: 'distance'
+            distanceField: 'distance',
         },
     },
 ]);
+
+// / -------------------------------------------------------------------------------NUMERIC DATA----------------------------------------------------------------------------------------------
+
+// collection stats
+db.persons.stats();
+db.persons.insertOne({ age: NumberInt(29) });
