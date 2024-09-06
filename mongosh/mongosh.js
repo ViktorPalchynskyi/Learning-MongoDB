@@ -970,3 +970,7 @@ db.persons.insertOne({ age: NumberInt(29) });
 db.companies.insertOne({
     valuation: NumberLong('9223372036854775807'),
 });
+
+db.science.aggregate([
+    { $project: { result: { $subtract: ['$a', '$b'] } } },
+]);
