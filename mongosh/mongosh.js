@@ -964,3 +964,9 @@ db.transformedPersons.aggregate([
 // collection stats
 db.persons.stats();
 db.persons.insertOne({ age: NumberInt(29) });
+
+// NumberLong
+
+db.companies.insertOne({
+    valuation: NumberLong('9223372036854775807'),
+});
