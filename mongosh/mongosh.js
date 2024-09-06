@@ -815,7 +815,6 @@ db.friends.aggregate([
             score: '$examScores.score',
         },
     },
-    { $sort: { score: -1 } },
     {
         $group: {
             _id: '$_id',
@@ -824,4 +823,30 @@ db.friends.aggregate([
         },
     },
     { $sort: { maxScore: -1 } },
+]);
+
+db.persons.aggregate([
+    {
+        $bucket: {
+            groupBy: '$dob.age',
+            boundaries: [18, 30, 40, 50, 60, 120],
+            output: {
+                numPersons: { $sum: 1 },
+                averageAge: { $avg: '$dob.age' },
+            },
+        },
+    },
+]);
+
+db.persons.aggregate([
+    {
+        $bucketAuto: {
+            groupBy: '$dob.age',
+            buckets: 10,
+            output: {
+                numPersons: { $sum: 1 },
+                averageAge: { $avg: '$dob.age' },
+            },
+        },
+    },
 ]);
