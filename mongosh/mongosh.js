@@ -753,3 +753,30 @@ db.friends.aggregate([
         },
     },
 ]);
+
+db.friends.aggregate([
+    {
+        $project: {
+            _id: 0,
+            emaxScore: { $slice: ['$examScores', 1] },
+        },
+    },
+]);
+
+db.friends.aggregate([
+    {
+        $project: {
+            _id: 0,
+            emaxScore: { $slice: ['$examScores', -2] },
+        },
+    },
+]);
+
+db.friends.aggregate([
+    {
+        $project: {
+            _id: 0,
+            emaxScore: { $slice: ['$examScores', 2, 1] },
+        },
+    },
+]);
