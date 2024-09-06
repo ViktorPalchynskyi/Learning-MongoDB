@@ -741,5 +741,14 @@ db.persons.aggregate([
             totalPersons: { $sum: 1 },
         },
     },
-    {$sort: {totalPersons: -1}}
+    { $sort: { totalPersons: -1 } },
+]);
+
+db.friends.aggregate([
+    {
+        $group: {
+            _id: { age: '$age' },
+            allHobbies: { $push: '$hobbies' },
+        },
+    },
 ]);
