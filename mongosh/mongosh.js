@@ -1005,3 +1005,7 @@ db.science.insertOne({
 // db.createUser({user: 'appdev', pwd: 'dev', roles: ['readWrite']})
 // db.logout()
 // db.runCommand({ connectionStatus: 1 })
+
+// db.auth('Viktor', '0219123')
+// db.getUser('appdev')
+// db.auth('appdev', 'dev')
