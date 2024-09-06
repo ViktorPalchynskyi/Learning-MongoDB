@@ -287,7 +287,7 @@ db.movies
     .limit(10)
     .count();
 
-// prjections
+// projections
 db.movies.find(
     {},
     { name: 1, genres: 1, rating: 1, runtime: 1, 'schedule.time': 1 }
@@ -584,13 +584,73 @@ db.persons.aggregate([
 ]);
 
 db.persons.aggregate([
-    { $match: { 'dob.age': {$gt: 50} } },
+    { $match: { 'dob.age': { $gt: 50 } } },
     {
         $group: {
             _id: { gender: '$gender' },
             totalPersons: { $sum: 1 },
-            avarageAge: {$avg: '$dob.age'}
+            avarageAge: { $avg: '$dob.age' },
         },
     },
     { $sort: { totalPersons: -1 } },
+]);
+
+db.persons.aggregate([
+    { $match: { 'dob.age': { $gt: 50 } } },
+    {
+        $group: {
+            _id: { gender: '$gender' },
+            totalPersons: { $sum: 1 },
+            avarageAge: { $avg: '$dob.age' },
+        },
+    },
+    { $sort: { totalPersons: -1 } },
+]);
+
+// $project
+
+db.persons.aggregate([
+    {
+        $project: {
+            _id: 0,
+            gender: 1,
+            fullName: {
+                $concat: [
+                    { $toUpper: '$name.title' },
+                    ' ',
+                    {
+                        $toUpper: {
+                            $substrCP: ['$name.first', 0, 1],
+                        },
+                    },
+                    {
+                        $substrCP: [
+                            '$name.first',
+                            1,
+                            {
+                                $subtract: [
+                                    { $strLenCP: '$name.first' },
+                                    1,
+                                ],
+                            },
+                        ],
+                    },
+                    ' ',
+                    { $toUpper: { $substrCP: ['$name.last', 0, 1] } },
+                    {
+                        $substrCP: [
+                            '$name.last', 
+                            1,
+                            {
+                                $subtract: [
+                                    { $strLenCP: '$name.last' },
+                                    1,
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+        },
+    },
 ]);
