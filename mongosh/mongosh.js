@@ -662,12 +662,7 @@ db.persons.aggregate([
             name: 1,
             email: 1,
             birthdate: {
-                $convert: {
-                    input: '$dob.date',
-                    to: 'date',
-                    onError: new Date(),
-                    onNull: new Date(),
-                },
+                $toDate: '$dob.date',
             },
             age: '$dob.age',
             location: {
