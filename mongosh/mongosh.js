@@ -1000,3 +1000,8 @@ db.science.insertOne({
 // admin> db.createUser({user: 'Viktor', pwd: '0219123', roles: ['userAdminAnyDatabase']})
 // admin> db.auth('Viktor', '0219123')
 
+// mongosh -u Viktor -p 0219123
+// mongosh -u Viktor -p 0219123 --authenticationDatabase admin
+// db.createUser({user: 'appdev', pwd: 'dev', roles: ['readWrite']})
+// db.logout()
+// db.runCommand({ connectionStatus: 1 })
