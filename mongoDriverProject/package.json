@@ -9,6 +9,7 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "mongodb": "^6.8.1",
+    "nodemon": "^3.1.4",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-router-dom": "^4.3.1",
@@ -19,6 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "start:server": "node ./backend/app.js"
+    "start:server": "nodemon ./backend/app.js"
   }
 }

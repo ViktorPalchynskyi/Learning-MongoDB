@@ -2,7 +2,6 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongodb = require('mongodb').MongoClient;
 
 const productRoutes = require('./routes/products');
 const authRoutes = require('./routes/auth');
@@ -26,14 +25,5 @@ app.use((req, res, next) => {
 app.use('/products', productRoutes);
 app.use('/', authRoutes);
 
-mongodb
-    .connect(
-        'mongodb+srv://VP:kjzVcCImI3Sidynn@cluster0.z1qfk.mongodb.net/shop?retryWrites=true&w=majority&appName=Cluster0'
-    )
-    .then((client) => {
-        console.log('Connected');
-        client.close();
-    })
-    .catch((err) => console.log(err));
 
 app.listen(3100);
