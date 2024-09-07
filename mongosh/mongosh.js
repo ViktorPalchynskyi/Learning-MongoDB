@@ -1023,3 +1023,6 @@ db.shutdownServer();
 /// -------------------------------------------------------------------------------PERFORMANCE & DEPLOYMENT----------------------------------------------------------------------------------------------
 
 db.createCollection('capped', { capped: true, size: 10000, max: 3 });
+
+// connect to the cluster
+// mongosh "mongodb+srv://cluster0.z1qfk.mongodb.net/" --apiVersion 1 --username VP
