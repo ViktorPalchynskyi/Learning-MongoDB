@@ -1,6 +1,7 @@
 const Router = require('express').Router;
 const mongodb = require('mongodb');
 const Decimal128 = mongodb.Decimal128;
+const ObjectId = mongodb.ObjectId;
 const db = require('../db');
 
 const router = Router();
@@ -90,8 +91,23 @@ router.get('/', (req, res, next) => {
 
 // Get single product
 router.get('/:id', (req, res, next) => {
-    const product = products.find((p) => p._id === req.params.id);
-    res.json(product);
+    const { id } = req.params;
+
+    db.getDb()
+        .db()
+        .collection('products')
+        .findOne({ _id: new ObjectId(id) })
+        .then((productDoc) => {
+          productDoc.price = productDoc.price.toString();
+
+          return res.status(200).json(productDoc);
+      })
+      .catch((err) => {
+          console.log(err);
+          return res.status(500).json({
+              message: 'An error occurred.',
+          });
+      });
 });
 
 // Add new product
