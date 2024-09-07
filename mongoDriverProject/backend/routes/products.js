@@ -59,8 +59,8 @@ const router = Router();
 router.get('/', (req, res, next) => {
     // Return a list of dummy products
     // Later, this data will be fetched from MongoDB
-    // const queryPage = req.query.page;
-    // const pageSize = 5;
+    const queryPage = req.query.page;
+    const pageSize = 5;
     // let resultProducts = [...products];
     // if (queryPage) {
     //     resultProducts = products.slice(
@@ -73,6 +73,9 @@ router.get('/', (req, res, next) => {
         .db()
         .collection('products')
         .find()
+        .sort({ price: -1 })
+        .skip((queryPage - 1) * pageSize)
+        .limit(pageSize)
         .forEach((productDoc) => {
             productDoc.price = productDoc.price.toString();
 
@@ -98,16 +101,16 @@ router.get('/:id', (req, res, next) => {
         .collection('products')
         .findOne({ _id: new ObjectId(id) })
         .then((productDoc) => {
-          productDoc.price = productDoc.price.toString();
+            productDoc.price = productDoc.price.toString();
 
-          return res.status(200).json(productDoc);
-      })
-      .catch((err) => {
-          console.log(err);
-          return res.status(500).json({
-              message: 'An error occurred.',
-          });
-      });
+            return res.status(200).json(productDoc);
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.status(500).json({
+                message: 'An error occurred.',
+            });
+        });
 });
 
 // Add new product
@@ -141,23 +144,55 @@ router.post('', (req, res, next) => {
 // Edit existing product
 // Requires logged in user
 router.patch('/:id', (req, res, next) => {
+    const { id } = req.params;
     const updatedProduct = {
         name: req.body.name,
         description: req.body.description,
-        price: parseFloat(req.body.price), // store this as 128bit decimal in MongoDB
+        price: Decimal128.fromString(req.body.price.toString()), // store this as 128bit decimal in MongoDB
         image: req.body.image,
     };
-    console.log(updatedProduct);
-    res.status(200).json({
-        message: 'Product updated',
-        productId: 'DUMMY',
-    });
+
+    db.getDb()
+        .db()
+        .collection('products')
+        .updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updatedProduct }
+        )
+        .then((productDoc) => {
+            return res.status(200).json({
+                message: 'Product updated',
+                productId: productDoc,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.status(500).json({
+                message: 'An error occurred.',
+            });
+        });
 });
 
 // Delete a product
 // Requires logged in user
 router.delete('/:id', (req, res, next) => {
-    res.status(200).json({ message: 'Product deleted' });
+    const { id } = req.params;
+
+    db.getDb()
+        .db()
+        .collection('products')
+        .deleteOne({ _id: new ObjectId(id) })
+        .then(() => {
+            return res
+                .status(200)
+                .json({ message: 'Product deleted' });
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.status(500).json({
+                message: 'An error occurred.',
+            });
+        });
 });
 
 module.exports = router;
