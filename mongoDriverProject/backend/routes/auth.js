@@ -14,12 +14,34 @@ router.post('/login', (req, res, next) => {
     const pw = req.body.password;
     // Check if user login is valid
     // If yes, create token and return it to client
+    db.getDb()
+        .db()
+        .collection('users')
+        .findOne({ email })
+        .then((result) => {
+            return bcrypt.compare(pw, result.password);
+        })
+        .then((authed) => {
+          if (!authed) {
+            throw Error();
+          }
+
+            const token = createToken();
+
+            return res.status(201).json({
+                token: token,
+                message: 'Authenication succeeded.',
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.status(401).json({
+                message:
+                    'Authentication failed, invalid username or password.',
+            });
+        });
     const token = createToken();
     // res.status(200).json({ token: token, user: { email: 'dummy@dummy.com' } });
-    res.status(401).json({
-        message:
-            'Authentication failed, invalid username or password.',
-    });
 });
 
 router.post('/signup', (req, res, next) => {
