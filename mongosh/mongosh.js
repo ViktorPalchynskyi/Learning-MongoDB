@@ -1026,3 +1026,15 @@ db.createCollection('capped', { capped: true, size: 10000, max: 3 });
 
 // connect to the cluster
 // mongosh "mongodb+srv://cluster0.z1qfk.mongodb.net/" --apiVersion 1 --username VP
+
+/// -------------------------------------------------------------------------------TRANSACTIONS----------------------------------------------------------------------------------------------
+
+const session = db.getMongo().startSession();
+session.startTransaction();
+const usersC = session.getDatabase('blog').users;
+const postsC = session.getDatabase('blog').posts;
+usersC.deleteOne({ _id: ObjectId('66dc401098495039ba5e739c') });
+postsC.deleteMany({ userId: ObjectId('66dc401098495039ba5e739c') });
+
+session.commitTransaction();
+session.abortTransaction();
