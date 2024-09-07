@@ -1019,3 +1019,7 @@ db.shutdownServer();
 // check mongod logs and remove socket file
 // sudo cat /var/log/mongodb/mongod.log
 // sudo rm /tmp/mongodb-27017.sock
+
+/// -------------------------------------------------------------------------------PERFORMANCE & DEPLOYMENT----------------------------------------------------------------------------------------------
+
+db.createCollection('capped', { capped: true, size: 10000, max: 3 });
